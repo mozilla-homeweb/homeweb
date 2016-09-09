@@ -11,6 +11,8 @@ const SENSOR_ADDRESS_64 = '0013A20040F53592'; // 64-bit address of XBee
 const SENSOR_ADDRESS_16 = '5E59'; // 16-bit address of XBee
 const CONSTS = xbee_api.constants; // XBee API constants
 
+var TEMPERATURE = null;
+
 // Instantiate XBee API in API mode without escaping
 var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 1
@@ -25,7 +27,7 @@ var serialPort = new serialport(SERIAL_PORT, {
 // Start HTTP server
 http.createServer((request, response) => {
   response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.end('Hello World\n');
+  response.end('Temperature: ' + TEMPERATURE + '\n');
 }).listen(TCP_PORT);
 console.log('Server running on port ' + TCP_PORT);
 
@@ -46,7 +48,8 @@ function getSensorData() {
   });
 };
 
-// Log frames received from XBee
+// Set temperature from remote response
 xbeeAPI.on('frame_object', function(frame) {
+  TEMPERATURE = frame.analogSamples.AD2;
   console.log('>>', frame); 
 });
