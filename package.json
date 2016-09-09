@@ -1,0 +1,15 @@
+{
+  "name": "homeweb",
+  "version": "1.0.0",
+  "description": "Web of Things home server",
+  "main": "index.js",
+  "dependencies": {
+    "serialport": "^4.0.1",
+    "xbee-api": "^0.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Francis"
+}
